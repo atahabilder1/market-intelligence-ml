@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.Python
+venv/
+ENV/
+*.egg-info/
+*.egg
+
+# Jupyter
+.ipynb_checkpoints
+
+# Data
+data/raw/*
+data/processed/*
+data/features/*
+!data/*/.gitkeep
+
+# Models
+results/models/*.pkl
+results/models/*.h5
+*.pkl
+*.h5
+
+# Results
+results/plots/*
+results/reports/*
+!results/*/.gitkeep
+
+# IDE
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Environment
+.env
+
+# Logs
+*.log
