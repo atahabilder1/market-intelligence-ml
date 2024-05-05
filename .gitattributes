@@ -1,0 +1,63 @@
+# Git attributes for proper line endings and diff handling
+
+# Auto detect text files and normalize line endings to LF
+* text=auto
+
+# Python files
+*.py text eol=lf
+*.pyx text eol=lf
+*.pxd text eol=lf
+
+# Jupyter notebooks (treat as text for better diffs)
+*.ipynb text eol=lf
+
+# Configuration files
+*.yaml text eol=lf
+*.yml text eol=lf
+*.json text eol=lf
+*.toml text eol=lf
+*.cfg text eol=lf
+*.ini text eol=lf
+
+# Documentation
+*.md text eol=lf
+*.txt text eol=lf
+*.rst text eol=lf
+
+# Shell scripts
+*.sh text eol=lf
+*.bash text eol=lf
+
+# Git files
+.gitignore text eol=lf
+.gitattributes text eol=lf
+
+# Binary files
+*.pkl binary
+*.pickle binary
+*.h5 binary
+*.hdf5 binary
+*.npy binary
+*.npz binary
+*.joblib binary
+
+# Images
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.svg binary
+
+# Data files
+*.csv binary
+*.parquet binary
+
+# Model files
+*.model binary
+*.pb binary
+
+# Jupyter notebook cleaning (remove output from diffs)
+*.ipynb filter=nbstripout
+*.ipynb diff=jupyternotebook
+*.ipynb merge=jupyternotebook
