@@ -170,11 +170,34 @@ MIT License - see [LICENSE](LICENSE) file.
 
 ---
 
+## 🛠️ Development
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for development guidelines.
+
+```bash
+# Run tests
+make test
+
+# Format code
+make format
+
+# Launch notebooks
+make notebook
+```
+
 ## 📞 Contact
 
 For questions or collaboration:
 - GitHub: [aniktahabilder](https://github.com/aniktahabilder)
 - Email: [your-email]
+
+---
+
+## 🙏 Acknowledgments
+
+- Financial data provided by Yahoo Finance and CCXT
+- Built with scikit-learn, XGBoost, and TensorFlow
+- Inspired by academic research in quantitative finance
 
 ---
 
