@@ -49,30 +49,47 @@ market-intelligence-ml/
 
 ## 🚀 Quick Start
 
-### 1. Clone Repository
+### Option A: Full-Stack Web Application (Recommended)
+
+**Using Docker (Easiest):**
 ```bash
 git clone https://github.com/aniktahabilder/market-intelligence-ml.git
 cd market-intelligence-ml
+
+# Start both frontend and backend
+docker-compose up --build
+
+# Access the app
+# Frontend: http://localhost:3000
+# Backend API: http://localhost:8000
+# API Docs: http://localhost:8000/api/docs
 ```
 
-### 2. Set Up Environment
+**Manual Setup:**
+```bash
+# Backend
+source venv/bin/activate
+pip install -r requirements.txt -r backend/requirements.txt
+cd backend && uvicorn app.main:app --reload
+
+# Frontend (new terminal)
+cd frontend
+npm install
+npm run dev
+```
+
+See [SETUP.md](SETUP.md) for detailed instructions.
+
+### Option B: Jupyter Notebooks (Research)
+
 ```bash
 # Create virtual environment
 python3 -m venv venv
-
-# Activate (Linux/Mac)
 source venv/bin/activate
 
 # Install dependencies
 pip install -r requirements.txt
-```
 
-### 3. Configure Settings
-
-Edit `configs/config.yaml` to customize date ranges, assets, and parameters.
-
-### 4. Run Analysis
-```bash
 # Launch Jupyter
 jupyter notebook
 
@@ -145,14 +162,21 @@ This is part of a three-project portfolio:
 
 ## 📚 Dependencies
 
+**Backend:**
 - Python 3.9+
+- FastAPI, uvicorn
 - pandas, numpy, scipy
 - scikit-learn, xgboost, tensorflow
 - yfinance, ccxt (data sources)
-- matplotlib, seaborn, plotly
-- jupyter
 
-See `requirements.txt` for complete list.
+**Frontend:**
+- Node.js 18+
+- React 18, TypeScript
+- Vite, TailwindCSS
+- Recharts (visualizations)
+- Axios, TanStack Query
+
+See `requirements.txt`, `backend/requirements.txt`, and `frontend/package.json`.
 
 ---
 
@@ -174,16 +198,32 @@ MIT License - see [LICENSE](LICENSE) file.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for development guidelines.
 
+**Notebooks (Research):**
 ```bash
-# Run tests
-make test
-
-# Format code
-make format
-
-# Launch notebooks
-make notebook
+make test       # Run tests
+make format     # Format code
+make notebook   # Launch notebooks
 ```
+
+**Web Application:**
+```bash
+# Backend development
+cd backend
+uvicorn app.main:app --reload
+
+# Frontend development
+cd frontend
+npm run dev
+
+# Run tests
+pytest backend/tests/
+npm run test --prefix frontend
+```
+
+**API Documentation:**
+- Interactive: http://localhost:8000/api/docs
+- ReDoc: http://localhost:8000/api/redoc
+- Guide: [API_GUIDE.md](API_GUIDE.md)
 
 ## 📞 Contact
 

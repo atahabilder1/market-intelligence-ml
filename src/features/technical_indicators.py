@@ -40,10 +40,10 @@ def calculate_moving_averages(prices, windows=[5, 10, 20, 50, 200]):
     --------
     pd.DataFrame: DataFrame with MA columns
     """
-    mas = {}
+    result = pd.DataFrame(index=prices.index)
     for window in windows:
-        mas[f'ma_{window}'] = prices.rolling(window=window).mean()
-    return pd.DataFrame(mas)
+        result[f'ma_{window}'] = prices.rolling(window=window).mean()
+    return result
 
 def calculate_ema(prices, span=20):
     """
@@ -88,11 +88,11 @@ def calculate_macd(prices, fast=12, slow=26, signal=9):
     signal_line = macd_line.ewm(span=signal, adjust=False).mean()
     histogram = macd_line - signal_line
 
-    return pd.DataFrame({
-        'macd': macd_line,
-        'macd_signal': signal_line,
-        'macd_hist': histogram
-    })
+    result = pd.DataFrame(index=prices.index)
+    result['macd'] = macd_line
+    result['macd_signal'] = signal_line
+    result['macd_hist'] = histogram
+    return result
 
 def calculate_bollinger_bands(prices, window=20, num_std=2):
     """
@@ -117,12 +117,12 @@ def calculate_bollinger_bands(prices, window=20, num_std=2):
     upper_band = middle_band + (std * num_std)
     lower_band = middle_band - (std * num_std)
 
-    return pd.DataFrame({
-        'bb_upper': upper_band,
-        'bb_middle': middle_band,
-        'bb_lower': lower_band,
-        'bb_width': upper_band - lower_band
-    })
+    result = pd.DataFrame(index=prices.index)
+    result['bb_upper'] = upper_band
+    result['bb_middle'] = middle_band
+    result['bb_lower'] = lower_band
+    result['bb_width'] = upper_band - lower_band
+    return result
 
 def calculate_atr(high, low, close, period=14):
     """
@@ -179,10 +179,10 @@ def calculate_stochastic(high, low, close, k_period=14, d_period=3):
     k = 100 * ((close - lowest_low) / (highest_high - lowest_low))
     d = k.rolling(window=d_period).mean()
 
-    return pd.DataFrame({
-        'stoch_k': k,
-        'stoch_d': d
-    })
+    result = pd.DataFrame(index=close.index)
+    result['stoch_k'] = k
+    result['stoch_d'] = d
+    return result
 
 def calculate_adx(high, low, close, period=14):
     """
@@ -218,7 +218,15 @@ def calculate_adx(high, low, close, period=14):
     neg_di = 100 * (neg_dm.rolling(window=period).mean() / atr)
 
     # Calculate DX and ADX
-    dx = 100 * np.abs(pos_di - neg_di) / (pos_di + neg_di)
+    di_sum = pos_di + neg_di
+    # Avoid division by zero
+    di_sum = di_sum.replace(0, np.nan)
+    dx = 100 * np.abs(pos_di - neg_di) / di_sum
+
+    # Ensure dx is a Series (not DataFrame)
+    if isinstance(dx, pd.DataFrame):
+        dx = dx.iloc[:, 0]
+
     adx = dx.rolling(window=period).mean()
 
     return adx

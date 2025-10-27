@@ -39,3 +39,10 @@ results/reports/*
 
 # Logs
 *.log
+
+# Node
+node_modules/
+package-lock.json
+
+# Docker
+*.env.local
